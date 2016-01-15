@@ -9,7 +9,7 @@ activitylabels <- tbl_df(read.table('activity_labels.txt'))
 features <- read.table('features.txt', stringsAsFactors = F)
 
 #Appropriately labels the data set with descriptive variable names.
-names(subject) <- 'subjectid'
+names(subject) <- 'subject_id'
 names(y) <- 'activityid'
 
 features$V2 <- tolower(features$V2)
@@ -31,7 +31,7 @@ data <- select(data, -activityid)
 #Creates a second, independent tidy data set with the average of each
 #variable for each activity and each subject.
 
-data_result <- aggregate(data[,3:ncol(data)], by = list(activity=data$activity, subjectid=data$subjectid), FUN = mean)
+data_result <- aggregate(data[,3:ncol(data)], by = list(activity=data$activity, subject_id=data$subject_id), FUN = mean)
 names(data_result)[3:ncol(data_result)] <- paste0('average_',names(data_result)[3:ncol(data_result)])
 
-write.table(data_result, 'tidy_data.txt')
+write.table(data_result, 'tidy_data.txt', row.names = F)
